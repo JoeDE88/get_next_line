@@ -25,5 +25,7 @@
 char	*get_next_line(int fd);
 int		ft_checknewline(char *s);
 void	ft_strcpy(char *dst, char *src, int n);
+size_t	ft_strlen(const char *s);
+char	*read_buf(char *stash, int fd);
 
 #endif

@@ -29,6 +29,8 @@ int	ft_checknewline(char *s)
 	int	i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	while (i < BUFFER_SIZE)
 	{
 		if (s[i] == '\n')
@@ -36,4 +38,14 @@ int	ft_checknewline(char *s)
 		i++;
 	}
 	return (0);
+}
+
+size_t ft_strlen(const char *s)
+{
+	size_t	len;
+
+	len = 0;
+	while (s[len] != '\0')
+		len++;
+	return (len);
 }

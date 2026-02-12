@@ -7,6 +7,7 @@ int	main(void)
 
 	str = get_next_line(fd);
 	printf("string: %s\n", str);
+	/* 
 	str = get_next_line(fd);
 	printf("string: %s\n", str);
 	str = get_next_line(fd);
@@ -21,5 +22,6 @@ int	main(void)
 	printf("string: %s\n", str);
 	str = get_next_line(fd);
 	printf("string: %s\n", str);
+	*/
 	close(fd);
 }
