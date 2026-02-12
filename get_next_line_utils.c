@@ -26,12 +26,12 @@ void	ft_strcpy(char *dst, char *src, int n)
 
 int	ft_checknewline(char *s)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	if (!s)
 		return (0);
-	while (i < BUFFER_SIZE)
+	while (i < ft_strlen(s))
 	{
 		if (s[i] == '\n')
 			return (1);

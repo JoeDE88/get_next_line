@@ -16,30 +16,43 @@ char	*get_next_line(int fd)
 {
 	static char *stash;
 	char	*aux;
-	int	i;
 
-	i = 0;
+	aux = NULL;
 	if (stash == NULL)
 	{
 		stash = malloc(BUFFER_SIZE);
 		read(fd, stash, BUFFER_SIZE);
 	}
-	while (!ft_checknewline(stash))
+	while (stash != NULL)
 	{
-		if (!ft_checknewline(stash))
+		stash = read_buf(stash, fd);
+		if (ft_checknewline(stash))
 		{
-			stash = read_buf(stash, fd);
-			printf("stash: %s\n", stash);
-		}
-		else
-		{
-			int i = read(fd, aux, BUFFER_SIZE);
-			aux = malloc(i + 1);
-			printf("aux: %s\n", aux);
+			ft_truncate(stash, aux, '\n');
+			break;
 		}
 	}
-	printf("stash: %s\n", stash);
 	return (stash);
+}
+
+void    ft_truncate(char *stash, char *aux, char c)
+{
+	int	i = 0;
+	char *ptr;
+
+	while (stash[i] != c)
+		i++;
+	ptr = malloc((i + 1) * sizeof(char));
+	if (ptr == NULL)
+		return ;
+	ptr[i] = '\0';
+	while (i >= 0)
+	{
+		ptr[i] = stash[i];
+		i--;
+	}
+	aux = ptr;
+	printf("aux inside truncate: %s\n", aux);
 }
 
 char	*read_buf(char *stash, int fd)
