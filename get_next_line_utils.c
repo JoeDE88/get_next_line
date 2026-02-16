@@ -67,3 +67,18 @@ char	*ft_strchr(const char *s, int c)
 		return ((char *)&s[i]);
 	return (NULL);
 }
+
+char	*ft_strdup(char *s)
+{
+	char	*ptr;
+	int		len;
+
+	len = 0;
+	while(s[len] != '\0')
+		len++;
+	ptr = malloc((len + 1) * sizeof(unsigned char));
+	if (ptr == NULL)
+		return (NULL);
+	ft_strcpy(ptr, s, len + 1);
+	return (ptr);
+}
