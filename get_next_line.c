@@ -15,25 +15,20 @@
 char	*get_next_line(int fd)
 {
 	static char *stash;
-	char	*aux;
-	int	i = 0;
-
+	char		*aux;
+	
 	aux = NULL;
 	if (stash == NULL)
 	{
 		stash = malloc(BUFFER_SIZE);
 		read(fd, stash, BUFFER_SIZE);
+		printf("stash: %s\n", stash);
 	}
-	while (stash != NULL)
+	else
 	{
-		++i;
 		stash = read_buf(stash, fd);
-		if (ft_checknewline(stash))
-		{
-			stash = ft_truncate(stash, &aux, '\n');
-			break;
-		}
 	}
+	stash = ft_truncate(stash, &aux, '\n');
 	return (aux);
 }
 
@@ -71,14 +66,16 @@ char    *ft_truncate(char *stash, char **aux, char c)
 char	*read_buf(char *stash, int fd)
 {
 	int		bytes_read;
-	char	buf[BUFFER_SIZE];
+	char	*buf;
 	char	*aux;
 	int		len;
 
+	bytes_read = 1;
 	aux = NULL;
-	bytes_read = read(fd, buf, BUFFER_SIZE);
-	if (bytes_read > 0)
+	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	while (ft_strchr(stash, '\n') == NULL && bytes_read > 0)
 	{
+		bytes_read = read(fd, buf, BUFFER_SIZE);
 		len = BUFFER_SIZE + (int)ft_strlen(stash);
 		aux = malloc((len + 1) * sizeof(char));
 		if (aux == NULL)
@@ -86,13 +83,6 @@ char	*read_buf(char *stash, int fd)
 		ft_strcpy(aux, stash, ft_strlen(stash));
 		ft_strcpy(aux + ft_strlen(stash), buf, ft_strlen(buf));
 		aux[len] = '\0';
-	}
-	else
-	{
-		int i = 0;
-		while (buf[i] != '\0')
-			i++;
-		printf("i: %d ---- buf: %p ---- stash: '%s'\n", i, buf, stash);
 	}
 	stash = aux;
 	return (stash);
