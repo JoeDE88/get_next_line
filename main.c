@@ -14,16 +14,16 @@ int	main(void)
 	str = get_next_line(fd);
 	printf("string: %s\n", str);
 	free(str);
+	str = get_next_line(fd);
+	printf("string: %s\n", str);
+	free(str);
+	str = get_next_line(fd);
+	printf("string: %s\n", str);
+	free(str);
+	str = get_next_line(fd);
+	printf("string: %s\n", str);
+	free(str);
 	/*
-	str = get_next_line(fd);
-	printf("string: %s\n", str);
-	free(str);
-	str = get_next_line(fd);
-	printf("string: %s\n", str);
-	free(str);
-	str = get_next_line(fd);
-	printf("string: %s\n", str);
-	free(str);
 	str = get_next_line(fd);
 	printf("string: %s\n", str);
 	str = get_next_line(fd);
