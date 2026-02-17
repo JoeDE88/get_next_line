@@ -24,23 +24,7 @@ void	ft_strcpy(char *dst, char *src, int n)
 	}
 }
 
-int	ft_checknewline(char *s)
-{
-	size_t	i;
-
-	i = 0;
-	if (!s)
-		return (0);
-	while (i < ft_strlen(s))
-	{
-		if (s[i] == '\n')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-size_t ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
 	size_t	len;
 
@@ -57,7 +41,7 @@ char	*ft_strchr(const char *s, int c)
 	int	i;
 
 	i = 0;
-	while(s[i])
+	while (s[i])
 	{
 		if (s[i] == c)
 			return ((char *)&s[i]);
@@ -68,17 +52,13 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char	*ft_strdup(char *s)
+char	*ft_strdup(char *s, int len)
 {
 	char	*ptr;
-	int		len;
 
-	len = 0;
-	while(s[len] != '\0')
-		len++;
 	ptr = malloc((len + 1) * sizeof(unsigned char));
 	if (ptr == NULL)
 		return (NULL);
-	ft_strcpy(ptr, s, len + 1);
+	ft_strcpy(ptr, s, len + 1); 
 	return (ptr);
 }

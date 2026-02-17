@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 8
+#  define BUFFER_SIZE 1
 # endif
 
 # include <unistd.h>
@@ -23,12 +23,12 @@
 # include <stdio.h>
 
 char	*get_next_line(int fd);
-int		ft_checknewline(char *s);
 void	ft_strcpy(char *dst, char *src, int n);
 size_t	ft_strlen(const char *s);
 char	*read_buf(char **stash, int fd);
-char    *ft_truncate(char *stash, char **aux, char c);
+char	*ft_truncate(char *stash, char **aux, char c);
 char	*ft_strchr(const char *s, int c);
-char	*ft_strdup(char *s);
+char	*ft_strdup(char *s, int len);
+void	ft_copyline(char **stash, char *buf, char *aux, int bytes);
 
 #endif
