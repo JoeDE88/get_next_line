@@ -15,6 +15,16 @@
 static char	*read_buf(char *stash, int fd);
 static char	*extract_line(char *stash);
 static char	*get_next_stash(char *stash);
+static char *free_null(char *ptr1, char *ptr2);
+
+static char *free_null(char *ptr1, char *ptr2)
+{
+	if (ptr1)
+		free(ptr1);
+	if (ptr2)
+		free(ptr2);
+	return (NULL);
+}
 
 char	*get_next_line(int fd)
 {
@@ -47,33 +57,17 @@ static char	*read_buf(char *stash, int fd)
 	while (ft_strchr(stash, '\n') == NULL && bytes_read > 0)
 	{
 		bytes_read = read(fd, buf, BUFFER_SIZE);
-		if (bytes_read > 0)
-		{
-			buf[bytes_read] = '\0';
-			aux = ft_copyline(stash, buf, bytes_read);
-		}
+		if (bytes_read < 0)
+			return (free_null(stash, buf));
+		buf[bytes_read] = '\0';
+		aux = ft_strjoin(stash, buf);
 		if (aux == NULL)
-			return (NULL);
+			return (free_null(stash, NULL));
 		free(stash);
 		stash = aux;
 	}
 	free(buf);
 	return (stash);
-}
-
-char	*ft_copyline(char *stash, char *buf, int bytes)
-{
-	char	*aux;
-	int		len;
-
-	len = 0;
-	if (ft_strlen(stash) == 0)
-		len = bytes;
-	else
-		len = bytes + ft_strlen(stash);
-	aux = ft_strjoin(stash, buf);
-	stash = aux;
-	return (aux);
 }
 
 static char	*extract_line(char *stash)
@@ -98,13 +92,13 @@ static char	*get_next_stash(char *stash)
 	char	*new_stash;
 	char	*line_pos;
 	size_t	len;
-	
+
 	line_pos = ft_strchr(stash, '\n');
 	if (line_pos == NULL)
-		return (NULL);
+		return (free_null(stash, NULL));
 	len = ft_strlen(line_pos + 1);
 	if (len == 0)
-		return (NULL);
+		return (free_null(stash, NULL));
 	new_stash = ft_substr(line_pos + 1, 0, len);
 	free(stash);
 	return (new_stash);
