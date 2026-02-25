@@ -12,11 +12,6 @@
 
 #include "get_next_line.h"
 
-/* static char	*read_buf(char *stash, int fd);
-static char	*extract_line(char *stash);
-static char	*get_next_stash(char *stash);
-static char	*free_null(char *ptr1, char *ptr2); */
-
 static char	*free_null(char *ptr1, char *ptr2)
 {
 	if (ptr1)
